@@ -1,18 +1,23 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Person from "./Person/Person";
 
-class App extends Component {
-  state = {
+const App = (props) => {
+  const [state, setState] = useState({
     persons: [
       { name: "Max", age: 28 },
       { name: "Manu", age: 31 },
       { name: "Jinger", age: 22 },
     ],
-  };
+    otherState: 'Some other value',
+  });
+  const [otherState, setOtherState] = useState({otherState: 'Some other value'})
 
-  switchHandler = () => {
-    this.setState({
+  console.log(state, otherState);
+
+
+  const switchValuesHandler = () => {
+    setState({
       persons: [
         { name: "Maximilian", age: 28 },
         { name: "Manu", age: 31 },
@@ -20,21 +25,34 @@ class App extends Component {
       ],
     });
   };
-  render() {
+  const changeNameHandler = (event) => {
+    setState({
+      ...state,
+      persons: [
+        { name: "Maximilian", age: 28 },
+        { name: event.target.value, age: 31 },
+        { name: "Jinger", age: 29 },
+      ],
+    });
+  }
+  
     return (
       <div className="App">
-        <button onClick={this.switchHandler}>Click to Switch</button>
+        <h1>Hi, I am a React App</h1>
+        <button onClick={switchValuesHandler}>Click to switch values</button>
         <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
+          name={state.persons[0].name}
+          age={state.persons[0].age}
         />
         <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
+          name={state.persons[1].name}
+          age={state.persons[1].ageS}
+          sentToComponent={switchValuesHandler}
+          changge={changeNameHandler}
         />
         <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
+          name={state.persons[2].name}
+          age={state.persons[2].age}
         >
           My hobby: Runinig.
         </Person>
@@ -46,6 +64,6 @@ class App extends Component {
     //   React.createElement("h1", { className: "App" }, "My name is VOVA")
     // );
   }
-}
+
 
 export default App;
