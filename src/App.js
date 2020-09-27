@@ -9,12 +9,13 @@ const App = (props) => {
       { name: "Manu", age: 31 },
       { name: "Jinger", age: 22 },
     ],
-    otherState: 'Some other value',
+    otherState: "Some other value",
   });
-  const [otherState, setOtherState] = useState({otherState: 'Some other value'})
+  const [otherState, setOtherState] = useState({
+    otherState: "Some other value",
+  });
 
   console.log(state, otherState);
-
 
   const switchValuesHandler = () => {
     setState({
@@ -34,36 +35,32 @@ const App = (props) => {
         { name: "Jinger", age: 29 },
       ],
     });
-  }
-  
-    return (
-      <div className="App">
-        <h1>Hi, I am a React App</h1>
-        <button onClick={switchValuesHandler}>Click to switch values</button>
-        <Person
-          name={state.persons[0].name}
-          age={state.persons[0].age}
-        />
-        <Person
-          name={state.persons[1].name}
-          age={state.persons[1].ageS}
-          sentToComponent={switchValuesHandler}
-          changge={changeNameHandler}
-        />
-        <Person
-          name={state.persons[2].name}
-          age={state.persons[2].age}
-        >
-          My hobby: Runinig.
-        </Person>
-      </div>
-    );
-    // return React.createElement(
-    //   "div",
-    //   null,
-    //   React.createElement("h1", { className: "App" }, "My name is VOVA")
-    // );
-  }
-
+  };
+  const style = {
+    backgroundColor: "white",
+    font: "inherit",
+    border: "3px solid blue",
+    padding: "8px",
+    cursor: "pointer",
+  };
+  return (
+    <div className="App">
+      <h1>Hi, I am a React App</h1>
+      <button style={style} onClick={switchValuesHandler}>
+        Click to switch values
+      </button>
+      <Person name={state.persons[0].name} age={state.persons[0].age} />
+      <Person
+        name={state.persons[1].name}
+        age={state.persons[1].ageS}
+        sentToComponent={switchValuesHandler}
+        changge={changeNameHandler}
+      />
+      <Person name={state.persons[2].name} age={state.persons[2].age}>
+        My hobby: Runinig and coding!
+      </Person>
+    </div>
+  );
+};
 
 export default App;
