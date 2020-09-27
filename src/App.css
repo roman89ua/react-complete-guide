@@ -26,3 +26,10 @@
     transform: rotate(360deg);
   }
 }
+.btn {
+  background-color: white;
+  font: inherit;
+  border: 3px solid blue;
+  padding: 8px;
+  cursor: pointer;
+}
