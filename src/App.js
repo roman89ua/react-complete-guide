@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "./App.css";
 import Person from "./Person/Person";
+import Radium, { StyleRoot } from "radium";
 
 const App = (props) => {
   const [state, setState] = useState({
     persons: [
       { id: 1, name: "Max", age: 28 },
       { id: 2, name: "Manu", age: 31, hobby: "My hobby: Runing and coding" },
-      { id: 3, name: "Jinger", age: 22 },
+      { id: 3, name: "Jinjer", age: 22 },
     ],
   });
 
@@ -37,7 +38,12 @@ const App = (props) => {
     persons[personIndex] = person;
     setState({ persons: persons });
   };
-
+  const style = {
+    ':hover': {
+      backgroundColor: 'lightgreen',
+      color: 'black',
+    }
+  }
   let persons = null;
   if (showPersons) {
     persons = (
@@ -62,21 +68,34 @@ const App = (props) => {
       </div>
     );
   }
+
+  let classes = [];
+
+  if(state.persons.length < 3){
+    classes.push('text_bold');
+  }
+  if(state.persons.length < 2){
+    classes.push('text_red');
+  }
+
   return (
-    <div className="App">
-      <h1>Hi, I am a React App</h1>
-      {showPersons ? (
-        <button className="btn" onClick={togglePersonsHandler}>
-          Hide Persons
-        </button>
-      ) : (
-        <button className="btn" onClick={togglePersonsHandler}>
-          Show Persons
-        </button>
-      )}
-      {persons}
-    </div>
+      <StyleRoot>
+        <div className="App">
+          <h1>Hi, I am a React App</h1>
+          <p className={classes.join(' ')}>It's really working</p>
+          {showPersons ? (
+            <button className="btn red_bg" style={style} onClick={togglePersonsHandler}>
+              Hide Persons
+            </button>
+          ) : (
+            <button className="btn green_bg" style={style} onClick={togglePersonsHandler}>
+              Show Persons
+            </button>
+          )}
+          {persons}
+        </div>
+      </StyleRoot>
   );
 };
 
-export default App;
+export default Radium(App);
